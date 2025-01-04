@@ -33,3 +33,5 @@ These are the labels along with their corresponding Movement.<br>
 | 22    | Wrist Extension with closed hand |
 | 23    | Ring Grasp |
 
+![GitHub Logo](https://ninapro.hevs.ch/figures/SData_Movements.png)
+
