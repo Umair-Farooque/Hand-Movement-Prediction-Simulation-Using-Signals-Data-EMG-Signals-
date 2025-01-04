@@ -10,6 +10,7 @@ These are the labels along with their corresponding Movement.<br>
 Label         | Movement
 ------------- | -------------
       0       |     Rest
+------------- | -------------
       1       |  Index Flexion
 
     * 1: "Index Flexion",
