@@ -5,8 +5,13 @@ This project is about training a model which predicts hand movements on basis of
 We have used dataset of Nina Pro for movements prediction. You can find all the information about the dataset from this website
 <https://ninapro.hevs.ch/> <br>
 Dataset includes 52 output labels i.e there are total 52 hand movemnts. But in this project we are only predicting 24.
-These are the labels along with their corresponding Movement.
-    * 0: "Rest",
+These are the labels along with their corresponding Movement.<br>
+
+Label         | Movement
+------------- | -------------
+      0       |     Rest
+      1       |  Index Flexion
+
     * 1: "Index Flexion",
     * 2: "Index Extension",
     * 3: "Middle Flexion",
