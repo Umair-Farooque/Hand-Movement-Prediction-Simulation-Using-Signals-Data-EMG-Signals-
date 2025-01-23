@@ -39,67 +39,43 @@ These are the labels along with their corresponding Movement.<br>
 
 ## Signal Processing
 
-+ ### Band-pass Filtering:<br>
++ ### Band-pass Filtering: Implemented using scipy.signal.butter and scipy.signal.filter.Filters EMG signals within a specified frequency range to remove noise.
 
-Implemented using scipy.signal.butter and scipy.signal.filter.
-Filters EMG signals within a specified frequency range to remove noise.
-
-+ ### Notch Filtering:<br>
-
-Removes powerline interference (e.g., 50 Hz or 60 Hz) using scipy.signal.notch.
++ ### Notch Filtering: Removes powerline interference (e.g., 50 Hz or 60 Hz) using scipy.signal.notch.
 
 ## Machine Learning
 
-+ ### PyTorch:<br>
++ ### PyTorch: Used for creating neural network models.Includes custom datasets and dataloaders for handling EMG data.
 
-Used for creating neural network models.<br>
-Includes custom datasets and dataloaders for handling EMG data.
++ ### Cross-validation: Time-series cross-validation implemented with sklearn.model_selection.TimeSeriesSplit.
 
-+ ### Cross-validation:
-
-Time-series cross-validation implemented with sklearn.model_selection.TimeSeriesSplit.
-
-+ ### Performance Metrics:
-
-Evaluates model accuracy using sklearn.metrics.accuracy_score.
++ ### Performance Metrics: Evaluates model accuracy using sklearn.metrics.accuracy_score.
 
 ## Data Handling
 
-+ ### SciPy:
++ ### SciPy: Loads .mat files containing EMG data.
 
-Loads .mat files containing EMG data.
-
-+ ### NumPy:
-
-Performs numerical operations on the data.
++ ### NumPy: Performs numerical operations on the data.
 
 ## Efficiency Tools
 
-+ ### TQDM:
-
-Displays progress bars for iterative processes.
++ ### TQDM: Displays progress bars for iterative processes.
 
 ## Frameworks and Libraries
 
 The project utilizes the following frameworks and libraries:
 
-+ ### Google Colab:<br>
-For cloud-based computation and easy file access.<br>
++ ### Google Colab: For cloud-based computation and easy file access.<br>
 
-+ ### PyTorch: <br>
-For machine learning and deep learning tasks.<br>
++ ### PyTorch: For machine learning and deep learning tasks.<br>
 
-+ ### SciPy: <br>
-For signal processing.<br>
++ ### SciPy: For signal processing.<br>
 
-+ ### NumPy:<br>
-For efficient numerical computations.<br>
++ ### NumPy:For efficient numerical computations.<br>
 
-+ ### Scikit-learn: <br>
-For cross-validation and evaluation metrics.<br>
++ ### Scikit-learn: For cross-validation and evaluation metrics.<br>
 
-+ ### TQDM: <br>
-For progress tracking.<br>
++ ### TQDM: For progress tracking.<br>
 
 # Contributing
 
