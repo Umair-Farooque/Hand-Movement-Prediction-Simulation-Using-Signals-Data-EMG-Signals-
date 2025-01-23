@@ -46,7 +46,7 @@ Filters EMG signals within a specified frequency range to remove noise.
 
 ### Notch Filtering:<br>
 
-Removes powerline interference (e.g., 50 Hz or 60 Hz) using scipy.signal.iirnotch.
+Removes powerline interference (e.g., 50 Hz or 60 Hz) using scipy.signal.notch.
 
 ## Machine Learning
 
