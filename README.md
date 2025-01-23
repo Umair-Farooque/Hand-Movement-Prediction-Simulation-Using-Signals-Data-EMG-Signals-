@@ -37,70 +37,69 @@ These are the labels along with their corresponding Movement.<br>
 
 # Techniques Used
 
-# Signal Processing
+## Signal Processing
 
-# Band-pass Filtering:<br>
+### Band-pass Filtering:<br>
 
-Implemented using scipy.signal.butter and scipy.signal.lfilter.<br>
-
+Implemented using scipy.signal.butter and scipy.signal.filter.
 Filters EMG signals within a specified frequency range to remove noise.
 
-# Notch Filtering:<br>
+### Notch Filtering:<br>
 
 Removes powerline interference (e.g., 50 Hz or 60 Hz) using scipy.signal.iirnotch.
 
-# Machine Learning
+## Machine Learning
 
-# PyTorch:<br>
+### PyTorch:<br>
 
 Used for creating neural network models.<br>
 
 Includes custom datasets and dataloaders for handling EMG data.
 
-# Cross-validation:
+### Cross-validation:
 
 Time-series cross-validation implemented with sklearn.model_selection.TimeSeriesSplit.
 
-# Performance Metrics:
+### Performance Metrics:
 
 Evaluates model accuracy using sklearn.metrics.accuracy_score.
 
-# Data Handling
+## Data Handling
 
-# SciPy:
+### SciPy:
 
 Loads .mat files containing EMG data.
 
-# NumPy:
+### NumPy:
 
 Performs numerical operations on the data.
 
-# Efficiency Tools
+## Efficiency Tools
 
-# TQDM:
+### TQDM:
 
 Displays progress bars for iterative processes.
 
-Frameworks and Libraries
+## Frameworks and Libraries
 
 The project utilizes the following frameworks and libraries:
 
-# Google Colab:<br>
+### Google Colab:<br>
 For cloud-based computation and easy file access.<br>
 
-# PyTorch: <br>
+### PyTorch: <br>
 For machine learning and deep learning tasks.<br>
 
-# SciPy: <br>
+### SciPy: <br>
 For signal processing.<br>
 
-# NumPy:<br>
+### NumPy:<br>
 For efficient numerical computations.<br>
 
-# Scikit-learn: <br>
+### Scikit-learn: <br>
 For cross-validation and evaluation metrics.<br>
 
-# TQDM: <br>
+### TQDM: <br>
 For progress tracking.<br>
 
 # Contributing
