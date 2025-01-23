@@ -39,7 +39,7 @@ These are the labels along with their corresponding Movement.<br>
 
 ## Signal Processing
 
-+ ### Band-pass Filtering: ####Implemented using scipy.signal.butter and scipy.signal.filter.Filters EMG signals within a specified frequency range to remove noise.
++ ### Band-pass Filtering: #### Implemented using scipy.signal.butter and scipy.signal.filter.Filters EMG signals within a specified frequency range to remove noise.
 
 + ### Notch Filtering: Removes powerline interference (e.g., 50 Hz or 60 Hz) using scipy.signal.notch.
 
