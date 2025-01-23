@@ -2,7 +2,7 @@
 This project is about training a model which predicts hand movements on basis of EMG signals.
 
 # Dataset
-We have used dataset of Nina Pro for movements prediction. You can find all the information about the dataset from this website
+We have used dataset of Nina Pro DB1 and DB5 for movements prediction. You can find all the information about the dataset from this website
 <https://ninapro.hevs.ch/> <br>
 Dataset includes 52 output labels i.e there are total 52 hand movemnts. But in this project we are only predicting 24.
 These are the labels along with their corresponding Movement.<br>
