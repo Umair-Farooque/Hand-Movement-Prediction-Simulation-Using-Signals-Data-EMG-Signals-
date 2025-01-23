@@ -33,5 +33,67 @@ These are the labels along with their corresponding Movement.<br>
 | 22    | Wrist Extension with closed hand |
 | 23    | Ring Grasp |
 
-![GitHub Logo](https://ninapro.hevs.ch/figures/SData_Movements.png)
+![GitHub Logo](https://ninapro.hevs.ch/figures/SData_Movements.png)<br>
+
+Techniques Used
+
+Signal Processing
+
+Band-pass Filtering:
+
+Implemented using scipy.signal.butter and scipy.signal.lfilter.
+
+Filters EMG signals within a specified frequency range to remove noise.
+
+Notch Filtering:
+
+Removes powerline interference (e.g., 50 Hz or 60 Hz) using scipy.signal.iirnotch.
+
+Machine Learning
+
+PyTorch:
+
+Used for creating neural network models.
+
+Includes custom datasets and dataloaders for handling EMG data.
+
+Cross-validation:
+
+Time-series cross-validation implemented with sklearn.model_selection.TimeSeriesSplit.
+
+Performance Metrics:
+
+Evaluates model accuracy using sklearn.metrics.accuracy_score.
+
+Data Handling
+
+SciPy:
+
+Loads .mat files containing EMG data.
+
+NumPy:
+
+Performs numerical operations on the data.
+
+Efficiency Tools
+
+TQDM:
+
+Displays progress bars for iterative processes.
+
+Frameworks and Libraries
+
+The project utilizes the following frameworks and libraries:
+
+Google Colab: For cloud-based computation and easy file access.
+
+PyTorch: For machine learning and deep learning tasks.
+
+SciPy: For signal processing.
+
+NumPy: For efficient numerical computations.
+
+Scikit-learn: For cross-validation and evaluation metrics.
+
+TQDM: For progress tracking.
 
