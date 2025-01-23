@@ -39,7 +39,7 @@ These are the labels along with their corresponding Movement.<br>
 
 ## Signal Processing
 
-### Band-pass Filtering:<br>
++ ### Band-pass Filtering:<br>
 
 Implemented using scipy.signal.butter and scipy.signal.filter.
 Filters EMG signals within a specified frequency range to remove noise.
