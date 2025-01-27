@@ -90,6 +90,8 @@ The project utilizes the following frameworks and libraries:
 + ### TQDM:
 + For progress tracking.<br>
 
+# Simulation
+Currently the work is being done on simulation. The Model will predict a movement and the simulation of that movement will be done through unity 3D software.
 # Contributing
 
 *Contributions are welcome! Please fork the repository and submit a pull request with your proposed changes.*
