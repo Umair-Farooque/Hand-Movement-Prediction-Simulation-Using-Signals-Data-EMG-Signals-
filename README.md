@@ -68,3 +68,22 @@ project/
 │ ├── pre_saved_model.py
 │ └── request.py
 └── prediction.json # output of request.py
+
+
+### Running the simulation
+
+```bash
+# 1. Run inference (streams EMG, saves JSON)
+python scripts/request.py --model models/best_model.pt --out prediction.json
+
+# 2. Animate inside Blender (headless)
+blender blender/HandRig.blend --background \
+        --python blender/simulation.py -- --json prediction.json --render
+
+Add --render to save an MP4/GIF; omit for live viewport playback.
+```
+
+Contributing
+Fork → Branch → PR.
+We’re especially keen on improvements to real-time streaming, additional NinaPro movements, and rig enhancements.
+
