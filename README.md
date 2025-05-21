@@ -1,89 +1,126 @@
-# Hand-Movement-Prediction-using-Nina-Pro-dataset
+# Hand‑Movement Prediction Using NinaPro Dataset
+
+A complete pipeline for **EMG‑based hand‑movement recognition** (24 gestures) **and real‑time 3‑D visualisation in Blender**.
+
+---
 
 ## Dataset
-We use NinaPro DB1 & DB5. Full details: <https://ninapro.hevs.ch/>.
 
-> **Note:** NinaPro provides 52 labels, but this project currently predicts **24** movements (see table below).
+We use **NinaPro DB‑1** and **DB‑5**&nbsp;⇢ <https://ninapro.hevs.ch/>.
 
-| Label | Movement | | Label | Movement |
-|-------|-----------| |-------|-----------|
-| 0 | Rest | | 12 | Thumb Extension |
-| 1 | Index Flexion | | 13 | Thumbs Up |
-| 2 | Index Extension | | 14 | Ext. index + middle; flex. others |
-| 3 | Middle Flexion | | 15 | Flex. ring + pinky; ext. others |
-| 4 | Middle Extension | | 16 | Thumb opposing little-finger |
-| 5 | Ring Flexion | | 17 | Abduction (all fingers) |
-| 6 | Ring Extension | | 18 | Fist |
-| 7 | Pinky Flexion | | 19 | Pointing Index |
-| 8 | Pinky Extension | | 20 | Wrist Flexion |
-| 9 | Thumb Adduction | | 21 | Wrist Extension |
-| 10 | Thumb Abduction | | 22 | Wrist Ext. (closed hand) |
-| 11 | Thumb Flexion | | 23 | Ring Grasp |
+> NinaPro defines 52 gestures; **this repo currently targets 24** (listed below).
 
-![Movements](https://ninapro.hevs.ch/figures/SData_Movements.png)
+### Movement‑label map
+
+| Label | Movement | Label | Movement |
+|:----:|-------------------------------|:----:|----------------------------------------------|
+| 0  | Rest                                          | 12 | Thumb Extension |
+| 1  | Index Flexion                                | 13 | Thumbs Up |
+| 2  | Index Extension                              | 14 | Extension of index + middle; flex others |
+| 3  | Middle Flexion                               | 15 | Flex ring + pinky; extend others |
+| 4  | Middle Extension                             | 16 | Thumb opposing base of little finger |
+| 5  | Ring Flexion                                 | 17 | Abduction of all fingers |
+| 6  | Ring Extension                               | 18 | Fist (all fingers flexed together) |
+| 7  | Pinky Flexion                                | 19 | Pointing Index |
+| 8  | Pinky Extension                              | 20 | Wrist Flexion |
+| 9  | Thumb Adduction                              | 21 | Wrist Extension |
+| 10 | Thumb Abduction                              | 22 | Wrist Extension with closed hand |
+| 11 | Thumb Flexion                                | 23 | Ring Grasp |
+
+![NinaPro gestures](https://ninapro.hevs.ch/figures/SData_Movements.png)
 
 ---
 
 ## Techniques
 
-### Signal Processing
-* **Band-pass filter** – `scipy.signal.butter`, `scipy.signal.filtfilt`
-* **Notch filter** – `scipy.signal.iirnotch` (50/60 Hz powerline interference)
+### Signal Processing (`scipy`)
+* **Band‑pass filter** – `signal.butter` + `signal.filtfilt`
+* **Notch filter** – `signal.iirnotch` (50/60 Hz mains)
 
-### Machine Learning
-* **PyTorch** custom CNN/LSTM hybrids
-* **Time-series CV** – `sklearn.model_selection.TimeSeriesSplit`
-* **Metrics** – `sklearn.metrics.accuracy_score`, F1
+### Machine Learning (PyTorch + sklearn)
+* CNN / LSTM hybrids
+* **Time‑series cross‑validation** – `TimeSeriesSplit`
+* **Metrics** – accuracy, macro‑F1
 
 ### Data Handling
-* **SciPy** (`scipy.io.loadmat`) for `.mat`
-* **NumPy** for vectorised ops
+* **SciPy I/O** for `.mat`
+* **NumPy** vectorisation
 * **TQDM** progress bars
 
 ---
 
-## **NEW Simulation Pipeline (Blender 3D)**
+## 🔧 Simulation Pipeline (Blender 3D)
 
-| Step | File | Role |
-|------|------|------|
-| 1 | `pre_saved_model.py` | Loads trained model weights |
-| 2 | `request.py` | Streams/records EMG, predicts label, writes `prediction.json` |
-| 3 | `simulation.py` 🆕 | Reads `prediction.json` and triggers the matching hand animation in Blender |
+| # | Script | Purpose |
+|:-:|--------|---------|
+| 1 | `pre_saved_model.py` | Load pretrained weights |
+| 2 | `request.py` | Stream/record EMG → predict label → write `prediction.json` |
+| 3 | `blender/simulation.py` | Read JSON → play matching **Action** on rigged hand |
 
-### Why Blender (not Unity)?
-* Fully scriptable via **bpy** (Python API)  
-* Open-source, easy headless rendering for pipelines  
-* Avoids additional engine overhead for a single-hand simulation  
+<details>
+<summary><strong>Why Blender (instead of Unity)?</strong></summary>
 
-### Folder Structure
+* Fully scriptable via Python API (`bpy`)
+* Easy headless rendering/CI integration
+* Lightweight for a single‑hand scene
+</details>
 
+### Folder structure
+
+```text
 project/
-├── data/ # raw & processed EMG
+├── data/                     # raw & processed EMG
 ├── models/
-│ └── best_model.pt
+│   └── best_model.pt
 ├── blender/
-│ ├── HandRig.blend # rigged hand with 24 actions
-│ └── simulation.py # ← this file
+│   ├── HandRig.blend         # rigged hand with 24 actions
+│   └── simulation.py
 ├── scripts/
-│ ├── pre_saved_model.py
-│ └── request.py
-└── prediction.json # output of request.py
-
-
-### Running the simulation
-
-```bash
-# 1. Run inference (streams EMG, saves JSON)
-python scripts/request.py --model models/best_model.pt --out prediction.json
-
-# 2. Animate inside Blender (headless)
-blender blender/HandRig.blend --background \
-        --python blender/simulation.py -- --json prediction.json --render
-
-Add --render to save an MP4/GIF; omit for live viewport playback.
+│   ├── pre_saved_model.py
+│   └── request.py
+└── prediction.json           # generated each inference cycle
 ```
 
-Contributing
-Fork → Branch → PR.
-We’re especially keen on improvements to real-time streaming, additional NinaPro movements, and rig enhancements.
+### Quick‑start
 
+```bash
+# 1. Predict from incoming EMG and save result
+python scripts/request.py --model models/best_model.pt --out prediction.json
+
+# 2. Animate inside Blender
+blender blender/HandRig.blend --background        --python blender/simulation.py -- --json prediction.json --render
+```
+
+> Add `--render` to export an MP4; omit it for live viewport playback.
+
+---
+
+## Known Issues & Troubleshooting
+
+| Symptom | Likely Cause / Fix |
+|---------|--------------------|
+| **❌  `Armature 'HandRig' not found`** | The armature in `HandRig.blend` must be named **exactly** `HandRig`. |
+| **❌  `Action '<name>' not found`** | Ensure each of the 24 Blender Actions matches the movement names **verbatim** (see table above). |
+| **Blender can’t import `bpy`** | Run the script *inside* Blender (`blender … --python …`). |
+| **Python module errors** | Install requirements: `pip install -r requirements.txt` (SciPy, NumPy, PyTorch, scikit‑learn, tqdm). |
+| **Lag during live streaming** | Use a lower EMG sampling rate or batch predictions. |
+| **Render is blank/black** | Add a Camera & light, or switch viewport render engine to Eevee/Cycles. |
+
+---
+
+## Contributing
+
+1. **Fork** the repo  
+2. **Create** a feature branch  
+3. **Commit** clear, atomic changes  
+4. **Open** a PR – please describe *what* & *why*  
+
+We welcome PRs for:
+* Additional NinaPro gestures (25–52)
+* Real‑time OSC / WebSocket streaming
+* Rig/animation improvements
+* Performance profiling & quantisation
+
+---
+
+*Happy coding & animating! 🎉*
