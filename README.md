@@ -1,97 +1,70 @@
 # Hand-Movement-Prediction-using-Nina-Pro-dataset
 
-# Dataset
-We have used dataset of Nina Pro DB1 and DB5 for movements prediction. You can find all the information about the dataset from this website
-<https://ninapro.hevs.ch/> <br>
-Dataset includes 52 output labels i.e there are total 52 hand movemnts. But in this project we are only predicting 24.
-These are the labels along with their corresponding Movement.<br>
-| Label | Prediction |
-|-------|------------|
-| 0     | Rest       |
-| 1     | Index Flexion |
-| 2     | Index Extension |
-| 3     | Middle Flexion |
-| 4     | Middle Extension |
-| 5     | Ring Flexion |
-| 6     | Ring Extension |
-| 7     | Pinky Flexion |
-| 8     | Pinky Extension |
-| 9     | Thumb Adduction |
-| 10    | Thumb Abduction |
-| 11    | Thumb Flexion |
-| 12    | Thumb Extension |
-| 13    | Thumbs Up |
-| 14    | Extension of index and middle, flexion of others |
-| 15    | Flexion of ring and pinky, extension of others |
-| 16    | Thumb opposing base of little finger |
-| 17    | Abduction of all fingers |
-| 18    | Fingers flexed together in fist |
-| 19    | Pointing Index |
-| 20    | Wrist flexion |
-| 21    | Wrist Extension |
-| 22    | Wrist Extension with closed hand |
-| 23    | Ring Grasp |
+## Dataset
+We use NinaPro DB1 & DB5. Full details: <https://ninapro.hevs.ch/>.
 
-![GitHub Logo](https://ninapro.hevs.ch/figures/SData_Movements.png)<br>
+> **Note:** NinaPro provides 52 labels, but this project currently predicts **24** movements (see table below).
 
-# Techniques Used
+| Label | Movement | | Label | Movement |
+|-------|-----------| |-------|-----------|
+| 0 | Rest | | 12 | Thumb Extension |
+| 1 | Index Flexion | | 13 | Thumbs Up |
+| 2 | Index Extension | | 14 | Ext. index + middle; flex. others |
+| 3 | Middle Flexion | | 15 | Flex. ring + pinky; ext. others |
+| 4 | Middle Extension | | 16 | Thumb opposing little-finger |
+| 5 | Ring Flexion | | 17 | Abduction (all fingers) |
+| 6 | Ring Extension | | 18 | Fist |
+| 7 | Pinky Flexion | | 19 | Pointing Index |
+| 8 | Pinky Extension | | 20 | Wrist Flexion |
+| 9 | Thumb Adduction | | 21 | Wrist Extension |
+| 10 | Thumb Abduction | | 22 | Wrist Ext. (closed hand) |
+| 11 | Thumb Flexion | | 23 | Ring Grasp |
 
-## Signal Processing
+![Movements](https://ninapro.hevs.ch/figures/SData_Movements.png)
 
-+ ### Band-pass Filtering:
-+ Implemented using scipy.signal.butter and scipy.signal.filter.Filters EMG signals within a specified frequency range to remove noise.
+---
 
-+ ### Notch Filtering:
-+ Removes powerline interference (e.g., 50 Hz or 60 Hz) using scipy.signal.notch.
+## Techniques
 
-## Machine Learning
+### Signal Processing
+* **Band-pass filter** – `scipy.signal.butter`, `scipy.signal.filtfilt`
+* **Notch filter** – `scipy.signal.iirnotch` (50/60 Hz powerline interference)
 
-+ ### PyTorch:
-+ Used for creating neural network models.Includes custom datasets and dataloaders for handling EMG data.
+### Machine Learning
+* **PyTorch** custom CNN/LSTM hybrids
+* **Time-series CV** – `sklearn.model_selection.TimeSeriesSplit`
+* **Metrics** – `sklearn.metrics.accuracy_score`, F1
 
-+ ### Cross-validation:
-+ Time-series cross-validation implemented with sklearn.model_selection.TimeSeriesSplit.
+### Data Handling
+* **SciPy** (`scipy.io.loadmat`) for `.mat`
+* **NumPy** for vectorised ops
+* **TQDM** progress bars
 
-+ ### Performance Metrics:
-+ Evaluates model accuracy using sklearn.metrics.accuracy_score.
+---
 
-## Data Handling
+## **NEW Simulation Pipeline (Blender 3D)**
 
-+ ### SciPy:
-+ Loads .mat files containing EMG data.
+| Step | File | Role |
+|------|------|------|
+| 1 | `pre_saved_model.py` | Loads trained model weights |
+| 2 | `request.py` | Streams/records EMG, predicts label, writes `prediction.json` |
+| 3 | `simulation.py` 🆕 | Reads `prediction.json` and triggers the matching hand animation in Blender |
 
-+ ### NumPy:
-+ Performs numerical operations on the data.
+### Why Blender (not Unity)?
+* Fully scriptable via **bpy** (Python API)  
+* Open-source, easy headless rendering for pipelines  
+* Avoids additional engine overhead for a single-hand simulation  
 
-## Efficiency Tools
+### Folder Structure
 
-+ ### TQDM:
-+ Displays progress bars for iterative processes.
-
-## Frameworks and Libraries
-
-The project utilizes the following frameworks and libraries:
-
-+ ### Google Colab:
-+ For cloud-based computation and easy file access.<br>
-
-+ ### PyTorch:
-+ For machine learning and deep learning tasks.<br>
-
-+ ### SciPy:
-+ For signal processing.<br>
-
-+ ### NumPy:
-+ For efficient numerical computations.<br>
-
-+ ### Scikit-learn:
-+ For cross-validation and evaluation metrics.<br>
-
-+ ### TQDM:
-+ For progress tracking.<br>
-
-# Simulation
-Currently the work is being done on simulation. The Model will predict a movement and the simulation of that movement will be done through unity 3D software.
-# Contributing
-
-*Contributions are welcome! Please fork the repository and submit a pull request with your proposed changes.*
+project/
+├── data/ # raw & processed EMG
+├── models/
+│ └── best_model.pt
+├── blender/
+│ ├── HandRig.blend # rigged hand with 24 actions
+│ └── simulation.py # ← this file
+├── scripts/
+│ ├── pre_saved_model.py
+│ └── request.py
+└── prediction.json # output of request.py
