@@ -1,4 +1,4 @@
-# Hand‑Movement Prediction Using NinaPro Dataset
+# Hand‑Movement Prediction and simulation using Signals Data (EMG Signals from NinaPro Dataset)
 
 A complete pipeline for **EMG‑based hand‑movement recognition** (24 gestures) **and real‑time 3‑D visualisation in Blender**.
 
